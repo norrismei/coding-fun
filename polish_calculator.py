@@ -9,26 +9,44 @@ def calc(s):
     # Create stack (list of lists) from string
     # [['*', 2], ['+', '1', '2']]
 
-    operations = s # hard coding for now
+    # Stack to hold operations to perform in FILO order
+    operations = []
+    tokens = s.split()
+    
+    operation = []
+
+    for token in tokens:
+        # If token is an operator
+        if not token.isdigit():
+            # If operation is not empty list, need to add operation to stack before moving to next operation
+            if operation:
+                operations.append(operation)
+            operation = []
+            operation.append(token)
+        else:
+            operation.append(float(token))
+    
+    # Addressing fence post bug. One last add to stack
+    operations.append(operation)
 
     # Keep a running sum that starts at zero
-    running_sum = 0
+    running_total = 0
 
     # While there are still operations in the stack, pop one off to evaluate and combine with running sum
     while operations:
-        operation = operations.pop()
-        operator = operation[0]
+        curr_operation = operations.pop()
+        operator = curr_operation[0]
         # Each operation will result in a subtotal that gets combined with the running sum
         subtotal = 0
 
-        for i in range(1, len(operation)):
+        for i in range(1, len(curr_operation)):
+            num = curr_operation[i]
             if operator == '+':
-                num = float(operation[i])
                 subtotal += num
         
-        running_sum += subtotal
+        running_total += subtotal
 
     # When stack is empty, return the running sum
-    return running_sum
+    return running_total
 
-print(calc([['+', '2', '5']]))
+print(calc("* 9 + 1 2"))
