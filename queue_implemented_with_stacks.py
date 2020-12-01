@@ -1,47 +1,43 @@
-class MyQueue:
+class Queue:
 
     def __init__(self):
-        """
-        Initialize your data structure here.
-        """
-        self.queue = Stack() # 2, 1
-        self.waiting_stack = Stack()
-        
+        self._s1 = Stack()
+        self._s2 = Stack()
+    
+    def enqueue(self, item):
+        self._s1.push(item)
+    
+    # def dequeue(self):
 
-    def push(self, x: int) -> None:
-        """
-        Push element x to the back of queue.
-        """
-        while not self.queue.is_empty():
-            front_num = self.queue.pop()
-            self.waiting_stack.push(front_num)
+    #     if not self._s2.is_empty():
+    #         return self._s2.pop()
+    #     elif self._s1.is_empty():
+    #         return "There's nothing to dequeue"
+    #     else:
+    #         while not self._s1.is_empty():
+    #             item = self._s1.pop()
+    #             # print(f"item: {item}")
+    #             self._s2.push(item)
         
-        self.queue.push(x)
+    #         return self._s2.pop()
+    
+    def dequeue(self):
+        # The queue is completely empty
+        if self._s1.is_empty() and self._s2.is_empty():
+            raise ValueError('Queue is empty.')
         
-        while not self.waiting_stack.is_empty():
-            back_num = self.waiting_stack.pop()
-            self.queue.push(back_num)
-        
+        if self._s2.is_empty():
+            # Do transfer
+            while not self._s1.is_empty():
+                self._s2.push(self._s1.pop())
 
-    def pop(self) -> int:
-        """
-        Removes the element from in front of queue and returns that element.
-        """
-        return self.queue.pop()
-        
-
-    def peek(self) -> int:
-        """
-        Get the front element.
-        """
-        return self.queue._items[-1]
-        
-
-    def empty(self) -> bool:
-        """
-        Returns whether the queue is empty.
-        """
-        return not self.queue._items
+        return self._s2.pop()
+    
+    def size(self):
+        return len(self._s1._items) + len(self._s2._items)
+    
+    def is_empty(self):
+        return self._s1.is_empty() and self._s2.is_empty()
 
 class Stack:
     
@@ -62,12 +58,15 @@ class Stack:
     
     def is_empty(self):
         return not self._items
-        
 
+q = Queue()
 
-# Your MyQueue object will be instantiated and called as such:
-# obj = MyQueue()
-# obj.push(x)
-# param_2 = obj.pop()
-# param_3 = obj.peek()
-# param_4 = obj.empty()
+for i in range(5):
+    q.enqueue(i)
+
+print('Dequeue: ', q.dequeue())
+print('Dequeue: ', q.dequeue())
+print('Dequeue: ', q.dequeue())
+print('Dequeue: ', q.dequeue())
+print('Dequeue: ', q.dequeue())
+print('Empty:', q.is_empty() )
