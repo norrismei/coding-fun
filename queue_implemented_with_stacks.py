@@ -28,3 +28,23 @@ class MyQueue:
         """
         Returns whether the queue is empty.
         """
+
+class Stack:
+    
+    def __init__(self):
+        self._items = []
+    
+    def push(self, item):
+        self._items.append(item)
+    
+    def peek(self):
+        return self._items[-1]
+    
+    def pop(self):
+        return self._items.pop()
+    
+    def size(self):
+        return len(self._items)
+    
+    def is_empty(self):
+        return not self._items
