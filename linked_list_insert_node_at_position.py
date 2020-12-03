@@ -47,6 +47,26 @@ def print_singly_linked_list(node, sep, fptr):
 #
 #
 def insertNodeAtPosition(head, data, position):
+
+    if not head:
+        return None
+    
+    # Find the position
+    curr_position = 0
+    previous = None
+    curr = head
+    
+    while curr_position != position:
+        previous = curr
+        curr = curr.next
+        curr_position += 1
+    
+    # When we're at the right position, create the node to be inserted.
+    node = SinglyLinkedListNode(data)
+    node.next = curr
+    previous.next = node
+    
+    return head
     
 
 if __name__ == '__main__':
