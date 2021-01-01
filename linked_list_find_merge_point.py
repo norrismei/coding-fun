@@ -41,9 +41,25 @@ def print_singly_linked_list(node, sep, fptr):
 #
 #
 def findMergeNode(head1, head2):
-    # Create single dictionary to keep track of all nodes that we've visited
+    # Create a set to keep track of all nodes that we've visited
+    visited_nodes = set()
     # Starting at each head, traverse through lists simultaneously
+    curr1 = head1
+    curr2 = head2
     # While there are still nodes left in the first list or second list
-        # check if the current node is in the dictionary.
+    while curr1 or curr2:
+        # check if the current node is in the set.
         # if yes, return the data of that node
-        # if not, add the current node to the dictionary and move to next
+        # if not, add the current node to the set and move to next
+        if curr1 and curr1 in visited_nodes:
+            return curr1.data
+        elif curr1:
+            visited_nodes.add(curr1)
+            curr1 = curr1.next
+        
+        if curr2 and curr2 in visited_nodes:
+            return curr2.data
+        elif curr2:
+            visited_nodes.add(curr2)
+            curr2 = curr2.next
+    
