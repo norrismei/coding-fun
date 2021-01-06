@@ -38,24 +38,48 @@ def print_singly_linked_list(node, sep, fptr):
 #     SinglyLinkedListNode next
 
 def mergeLists(head1, head2):
-# if head1 is null, return head2
-# if head2 is null, return head1
+    # if head1 is null, return head2
+    if not head1:
+        return head2
+    # if head2 is null, return head1
+    elif not head2:
+        return head1
 
-# Create a new linkedlist for our merged linked lists
-# Current node will start at each respective head
+    # Create a new linkedlist for our merged linked lists
+    merged = SinglyLinkedList()
 
-# while there are still nodes in list1 and list2, compare the data of the current nodes. 
-    # if node in list1 is less than or equal to node in list2,
-        # insert the node into the merged linked list
-        # curr1 will move to its next node
-    # else, the node in list1 is greater than the node in list2,
-        # so insert the node in list2 to the merged linked list
-        # curr2 will move to its next node
+    # Current node will start at each respective head
+    curr1 = head1
+    curr2 = head2
 
-# if curr1 is null, then we've gone through all of list1.
-    # to add the rest of list2, insert curr2 node and move to next while there are still nodes in curr2
-# else, if curr2 is null, then we've gone through all of list2.
-    # to add the rest of list1, insert curr1 node and move to next while there are still nodes in curr1
+    # while there are still nodes in list1 and list2, compare the data of the current nodes. 
+    while curr1 and curr2:
+        # if node in list1 is less than or equal to node in list2,
+        if curr1.data <= curr2.data:
+            # insert the node into the merged linked list
+            merged.insert_node(curr1.data)
+            # curr1 will move to its next node
+            curr1 = curr1.next
+        # else, the node in list1 is greater than the node in list2,
+        else:
+            # so insert the node in list2 to the merged linked list
+            merged.insert_node(curr2.data)
+            # curr2 will move to its next node
+            curr2 = curr2.next
 
-# return the head of the merged linked list
+    # if curr1 is null, then we've gone through all of list1.
+    if not curr1:
+        # to add the rest of list2, insert curr2 node and move to next while there are still nodes in curr2
+        while curr2:
+            merged.insert_node(curr2.data)
+            curr2 = curr2.next
+    # else, if curr2 is null, then we've gone through all of list2.
+    elif not curr2:
+        # to add the rest of list1, insert curr1 node and move to next while there are still nodes in curr1
+        while curr1:
+            merged.insert_node(curr1.data)
+            curr1 = curr1.next
+
+    # return the head of the merged linked list
+    return merged.head
 
