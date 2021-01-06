@@ -10,3 +10,12 @@
 # return the name of the one killer, in our case 'James' because he is the only person that saw both 'Lucas' and 'Bill'
 
 def killer(suspect_info, dead):
+    # assumptions: suspect is always in the suspect_info. there is only one killer.
+
+    # for each victim in the dead list
+        # if the suspects list is down to one person, that person is the killer
+        # for each suspect in the dictionary, see if they saw the victim that day
+            # if the suspect did not see victim, suspect can be removed from dictionary altogether
+            # else, suspect remains in dictionary and move on to the next suspect
+    
+    # after going through all victims, there should be one suspect left in dictionary
