@@ -8,9 +8,20 @@
 
 def find_digit(num, nth):
     # If nth is not positive, return -1
+    if nth =< 0:
+        return -1
 
     # If num is negative, multiply by -1 so we can work with pos num
+    if num < 0:
+        num = num * -1
 
     # Turn num into a string. If the nth is longer than the len of string, return 0.
-
     # Else, turn nth into a negative index and return the int version of the digit found at index
+    num_str = str(num)
+
+    if nth > len(num_str):
+        return 0
+    else:
+        neg_index = nth * -1
+        str_digit = num_str[neg_index]
+        return int(str_digit)
